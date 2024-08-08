@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
 	"github.com/bradleyfalzon/ghinstallation/v2"
 	"github.com/google/go-github/github"
@@ -63,6 +64,7 @@ func run() error {
 	}
 	result := struct {
 		Repos []*Repo
+		Tip   string
 	}{}
 	err = yaml.Unmarshal(data, &result)
 	if err != nil {
@@ -159,6 +161,8 @@ func createRepo(client *github.Client, github_org, github_repo, webhook_url, web
 	if err != nil {
 		return fmt.Errorf("create readme: %w", err)
 	}
+	// wait create file finish
+	time.Sleep(time.Second)
 	_, _, err = client.Repositories.CreateHook(ctx, github_org, github_repo, &github.Hook{
 		Name:   github.String("web"),
 		Config: map[string]interface{}{"url": webhook_url, "content_type": "json", "secret": webhook_secret},
