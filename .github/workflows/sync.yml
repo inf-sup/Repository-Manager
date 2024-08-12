@@ -17,4 +17,5 @@ jobs:
           git remote add upstream https://github.com/linglongdev/Repository-Manager.git
           git fetch upstream
           git merge --no-edit upstream/main
+          git rebase upstream/main
           git push origin main --force
