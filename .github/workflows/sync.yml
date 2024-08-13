@@ -18,5 +18,8 @@ jobs:
           git config --global user.email "174466778+inf-sup@users.noreply.github.com"
           git remote add upstream https://github.com/linglongdev/Repository-Manager.git
           git fetch upstream
-          git rebase -Xtheirs upstream/main
-          git push origin main --force
+          diff=$(git diff origin/main upstream/main --numstat -- ':!repos.yaml')
+          if [ -n "$diff" ]; then
+            git rebase -Xtheirs upstream/main
+            git push origin main --force
+          fi
