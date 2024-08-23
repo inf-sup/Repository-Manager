@@ -19,7 +19,7 @@ jobs:
           git config --global user.email "174466778+inf-sup@users.noreply.github.com"
           git remote add upstream https://github.com/linglongdev/Repository-Manager.git
           git fetch upstream
-          diff=$(git diff origin/main upstream/main --numstat -- ':!repos.yaml' ':!history')
+          diff=$(git diff origin/main upstream/main --numstat -- ':!repos.yaml')
           if [ -n "$diff" ]; then
             echo -e "find differences:\n$diff"
             message=$(git log -n 1 --pretty=format:"%s%n%b")
